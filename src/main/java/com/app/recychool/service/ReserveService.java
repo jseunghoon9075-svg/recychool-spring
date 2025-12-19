@@ -7,7 +7,7 @@ import com.app.recychool.domain.enums.ReserveType;
 public interface ReserveService {
 
     ReserveCreateResponseDTO createReserve(
-            String userEmail,
+            Long userId,
             Long schoolId,
             ReserveType reserveType,
             ReserveCreateRequestDTO requestDTO

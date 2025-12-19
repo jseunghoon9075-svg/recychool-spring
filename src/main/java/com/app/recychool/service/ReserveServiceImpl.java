@@ -28,19 +28,20 @@ public class ReserveServiceImpl implements ReserveService {
 
     @Override
     public ReserveCreateResponseDTO createReserve(
-            String userEmail,
+            Long userId,
             Long schoolId,
             ReserveType reserveType,
             ReserveCreateRequestDTO requestDTO
     ) {
 
         // 1. 사용자 / 학교 조회
-        User user = userRepository.findIdByUserEmail(userEmail);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalStateException("존재하지 않는 사용자입니다."));
+
         School school = schoolRepository.findById(schoolId)
                 .orElseThrow(() -> new IllegalStateException("존재하지 않는 학교입니다."));
 
         LocalDate startDate = requestDTO.getStartDate();
-        LocalDate endDate = requestDTO.getStartDate(); // 기본: 하루
 
         // 2. 타입별 분기
         if (reserveType == ReserveType.PLACE) {
