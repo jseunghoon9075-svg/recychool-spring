@@ -2,10 +2,12 @@ package com.app.recychool.domain.entity;
 
 import com.app.recychool.domain.dto.UserResponseDTO;
 import com.app.recychool.domain.enums.IdentityProvider;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -28,24 +30,27 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_USER_GENERATOR")
     private Long id;
     private String userName;
-    private Date userBirthday;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate userBirthday;
     private String userEmail;
     private String userPhone;
     private String userPassword;
     private String userProvider;
-    @Column(unique = true)
+
+    @Column(name = "USER_IS_LOGIN", nullable = true)
+    private Integer userIsLogin;
+
     private String userIdentityKey;
-
-    private LocalDateTime userIdentityVerifiedAt;
-
+    
     @Enumerated(EnumType.STRING)
     private IdentityProvider userIdentityProvider;
-
+    
+    private LocalDateTime userIdentityVerifiedAt;
 
     @JoinColumn(name = "USER_SOCIAL_ID")
     @OneToOne
     private UserSocial userSocial;
-
 
     public User(UserInsertSocial userInsertSocial) {
         this.id = userInsertSocial.getId();
