@@ -50,7 +50,7 @@ public class PaymentServiceImpl implements PaymentService {
         Payment saved = paymentRepository.save(payment);
 
         // 5) 예약 상태 업데이트: 결제 성공 → CONFIRMED
-        reserve.setReserveStatus(ReserveStatus.CONFIRMED);
+        reserve.setReserveStatus(ReserveStatus.COMPLETED);
 
         return new PaymentCompleteResponseDTO(
                 saved.getId(),

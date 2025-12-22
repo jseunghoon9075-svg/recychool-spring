@@ -39,5 +39,9 @@ public interface UserService {
   // 회원 탈퇴
   public void withdraw(Long id);
 
+  public void modifyUserIsLogin(Long userId);
+
+  public boolean findUserByUserNameAndUserPhone(String userName, String userPhone);
+
   public void updateUserInfo(Long userId, UserUpdateDTO userUpdateDTO);
 }
