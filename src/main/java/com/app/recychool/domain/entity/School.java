@@ -27,6 +27,7 @@ public class School {
     @Column(unique = true)
     private String schoolName; //학교이름
     private Double schoolLand; //대지
+    private Double schoolArea; // 건물연면적
     private String schoolPhone; //담당자전화번호
     private String schoolAddress; //학교주소
     private Double schoolLat; // 위도

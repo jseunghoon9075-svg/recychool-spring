@@ -57,6 +57,7 @@ public class SchoolBulkLoadService {
                 String address = safe(cols, 4);
                 String lonStr = safe(cols, 5); // _X
                 String latStr = safe(cols, 6); // _Y
+                String areaStr = safe(cols, 7);
 
                 if (name == null || name.isBlank()) {
                     skipped++;
@@ -70,6 +71,7 @@ public class SchoolBulkLoadService {
                 }
 
                 Double land = parseDoubleOrNull(landStr);
+                Double area = parseDoubleOrNull(areaStr);
                 Double lon = parseDoubleOrNull(lonStr);
                 Double lat = parseDoubleOrNull(latStr);
 
@@ -77,6 +79,7 @@ public class SchoolBulkLoadService {
                         .schoolCity(city)
                         .schoolName(name)
                         .schoolLand(land)
+                        .schoolArea(area)
                         .schoolPhone(phone)
                         .schoolAddress(address)
                         .schoolLon(lon)
