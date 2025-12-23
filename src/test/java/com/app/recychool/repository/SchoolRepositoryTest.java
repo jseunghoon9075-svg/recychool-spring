@@ -1,6 +1,8 @@
 package com.app.recychool.repository;
 
 import com.app.recychool.domain.entity.School;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,27 @@ import java.util.List;
 class SchoolRepositoryTest {
     @Autowired
     private SchoolRepository schoolRepository;
+
+    @PersistenceContext
+    private EntityManager em;
     @Test
     public void findAlltest(){
         List<School> schools = schoolRepository.findAll();
         schools.forEach(s -> System.out.println(s.getSchoolName()));
+    }
+
+    @Test
+    void findRandomSchoolWithParkLimitTest() {
+        String sql =
+                "SELECT * FROM (" +
+                        "  SELECT s.* FROM TBL_SCHOOL s " +
+                        "  WHERE s.SCHOOL_PARK_COUNT > 0 " +
+                        "  ORDER BY DBMS_RANDOM.VALUE" +
+                        ") WHERE ROWNUM <= 4";
+
+        List<School> lists = em.createNativeQuery(sql, School.class).getResultList();
+
+        log.info("schools: {}", lists);
     }
 
 //    @Test
